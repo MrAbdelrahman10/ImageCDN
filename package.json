@@ -4,7 +4,7 @@
   "description": "Serve and resize images",
   "main": "index.js",
   "scripts": {
-    "start":"node index.js",
+    "start": "node index.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -27,6 +27,10 @@
     "cors": "^2.8.5",
     "dotenv": "^8.2.0",
     "express": "^4.17.1",
-    "jimp": "^0.8.5"
+    "express-minify": "^1.0.0",
+    "fs-extra": "^11.1.1",
+    "jimp": "^0.8.5",
+    "multer": "^1.4.5-lts.1",
+    "uuid": "^9.0.0"
   }
 }
