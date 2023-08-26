@@ -11,6 +11,31 @@ const uuid = require("uuid");
 
 const multer = require("multer");
 const fs = require("fs-extra");
+const compression = require("compression");
+const helmet = require("helmet");
+
+// Use cors middleware to allow/disallow
+const cors = require("cors");
+const corsOptions = {
+  origin:
+    process.env.APP_ORIGIN && process.env.APP_ORIGIN != "*"
+      ? process.env.APP_ORIGIN.split(",")
+      : "*",
+  optionsSuccessStatus: 200,
+};
+app.use(cors(corsOptions));
+
+const { rateLimiterMiddleware } = require("./src/services/antiddosService");
+
+app.use(rateLimiterMiddleware);
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
+
+// error handler
+
+app.use("js", express.static(__dirname + "/public/js"));
+app.use(compression());
+app.use(helmet());
 
 const upload = multer({
   storage: multer.diskStorage({
@@ -30,27 +55,6 @@ const upload = multer({
       callback(null, filaName);
     },
   }),
-});
-
-// Use cors middleware to allow/disallow
-const cors = require("cors");
-const corsOptions = {
-  origin:
-    process.env.APP_ORIGIN && process.env.APP_ORIGIN != "*"
-      ? process.env.APP_ORIGIN.split(",")
-      : "*",
-  optionsSuccessStatus: 200,
-};
-app.use(cors(corsOptions));
-
-app.use(express.json());
-app.use(express.urlencoded({ extended: true }));
-
-// error handler
-app.use(function (err, req, res, next) {
-  filePath = path.join(__dirname, process.env.DEFAULT_IMAGE);
-  // Display default image if there is error
-  res.sendFile(filePath);
 });
 
 const uploadFiles = (req, res) => {

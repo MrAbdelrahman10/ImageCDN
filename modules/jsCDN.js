@@ -1,19 +1,23 @@
 const url = require("url");
 const path = require("path");
 const fs = require("fs-extra");
-const minify = require("express-minify");
+const UglifyJS = require("uglify-js");
+
+var UglifyJSOptions = {
+  toplevel: true,
+  compress: {
+    global_defs: {
+      //"@console.log": "alert",
+    },
+    passes: 2,
+  },
+  output: {
+    beautify: false,
+    preamble: "/* uglified */",
+  },
+};
 
 const cdn = (req, res, app, express) => {
-  express.static.mime.define({
-    "text/javascript": ["js"],
-  });
-  app.use(
-    minify({
-      cache: false,
-      uglifyJsModule: null,
-      jsMatch: /js/,
-    })
-  );
   try {
     const query = url.parse(req.url, true).query;
     let file = url.parse(req.url).pathname;
@@ -25,14 +29,16 @@ const cdn = (req, res, app, express) => {
       return res.status(404).send("file_notfound");
     }
     //
-    res.set("Content-Type", "text/javascript");
 
-    fs.readFile(filePath, (fileErr, result) => {
-      if (fileErr) {
+    res.contentType(path.basename(filePath));
+    //return res.status(200).sendFile(filePath);
+
+    fs.readFile(filePath, (fileErr, code) => {
+      let result = UglifyJS.minify(code.toString(), UglifyJSOptions);
+      if (fileErr || result.err) {
         return res.status(404).send("file_notfound");
       }
-
-      return res.status(200).end(result);
+      return res.status(200).send(result.code);
     });
   } catch (e) {
     console.log(e);

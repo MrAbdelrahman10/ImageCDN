@@ -1,7 +1,7 @@
 {
-  "name": "imagecdn",
-  "version": "0.0.1",
-  "description": "Serve and resize images",
+  "name": "PegFaz CDN",
+  "version": "1.0.1",
+  "description": "Serve static files for PegFaz applications",
   "main": "index.js",
   "scripts": {
     "start": "node index.js",
@@ -11,26 +11,25 @@
     "type": "git",
     "url": "git+https://github.com/MrAbdelrahman10/ImageCDN.git"
   },
-  "keywords": [
-    "images",
-    "serve",
-    "cdn",
-    "resize"
-  ],
-  "author": "Abdelrahman Mohamed (mrabdelrahman10.com)",
+  "keywords": [],
+  "author": "Thiago Pedroso",
   "license": "ISC",
   "bugs": {
     "url": "https://github.com/MrAbdelrahman10/ImageCDN/issues"
   },
   "homepage": "https://github.com/MrAbdelrahman10/ImageCDN#readme",
   "dependencies": {
+    "compression": "^1.7.4",
     "cors": "^2.8.5",
     "dotenv": "^8.2.0",
     "express": "^4.17.1",
-    "express-minify": "^1.0.0",
     "fs-extra": "^11.1.1",
+    "helmet": "^7.0.0",
+    "ioredis": "^5.3.2",
     "jimp": "^0.8.5",
     "multer": "^1.4.5-lts.1",
+    "rate-limiter-flexible": "^2.4.2",
+    "uglify-js": "^3.17.4",
     "uuid": "^9.0.0"
   }
 }

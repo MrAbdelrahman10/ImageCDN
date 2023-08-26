@@ -51,8 +51,6 @@ if (app.get("env") === "development") {
   });
 }
 
-
-
 const updateFetchOptions = (options) => {
   const update = { ...options };
   update.headers = {
@@ -71,8 +69,7 @@ app.get("/teste", async (_req, res) => {
     method: "GET",
   };
 
-  try{
-
+  try {
     const response = await fetch(
       "https://philips.vtexcommercestable.com.br/api/oms/pvt/orders?per_page=200&f_creationDate=creationDate%3A%5B2023-01-26T02%3A00%3A00.000Z%20TO%202023-03-27T01%3A59%3A59.999Z%5D&f_paymentNames=Mastercard&f_status=payment-approved",
       updateFetchOptions(options)
@@ -80,10 +77,9 @@ app.get("/teste", async (_req, res) => {
     const json = await response.json();
     console.log(json);
     res.status(200).json(json);
-  }catch(e){
+  } catch (e) {
     res.status(200).send(e);
   }
-
 });
 
 /**
