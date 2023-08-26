@@ -47,7 +47,7 @@ const upload = multer({
     },
     filename: (req, file, callback) => {
       //originalname is the uploaded file's name with extn
-      if (req.body.originalname) {
+      if (!req.query.originalname) {
         var filaName = uuid.v4() + path.extname(file.originalname);
       } else {
         var filaName = file.originalname;

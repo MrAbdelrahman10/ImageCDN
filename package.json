@@ -1,5 +1,5 @@
 {
-  "name": "PegFaz CDN",
+  "name": "PegFaz-CDN",
   "version": "1.0.1",
   "description": "Serve static files for PegFaz applications",
   "main": "index.js",
@@ -11,7 +11,6 @@
     "type": "git",
     "url": "git+https://github.com/MrAbdelrahman10/ImageCDN.git"
   },
-  "keywords": [],
   "author": "Thiago Pedroso",
   "license": "ISC",
   "bugs": {
