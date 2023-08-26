@@ -24,7 +24,7 @@ const cdn = (req, res, app, express) => {
     if (!fs.existsSync(filePath)) {
       return res.status(404).send("file_notfound");
     }
-
+    //
     res.set("Content-Type", "text/javascript");
 
     fs.readFile(filePath, (fileErr, result) => {
