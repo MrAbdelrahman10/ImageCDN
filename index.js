@@ -35,7 +35,10 @@ app.use(express.urlencoded({ extended: true }));
 
 app.use("js", express.static(__dirname + "/public/js"));
 app.use(compression());
-app.use(helmet());
+app.use(helmet({
+  crossOriginEmbedderPolicy: false,
+  // ...
+}));
 
 app.use((req,res,next)=>{
 const authenticationToken = req.headers["x-token"];
