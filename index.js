@@ -37,6 +37,17 @@ app.use("js", express.static(__dirname + "/public/js"));
 app.use(compression());
 app.use(helmet());
 
+app.use((req,res,next)=>{
+const authenticationToken = req.headers["x-token"];
+if(req.method == 'POST' && !authenticationToken){
+  return res.status(403).send({
+    success: false,
+    err: 'invalid_token'
+  })
+}
+next()
+});
+
 const upload = multer({
   storage: multer.diskStorage({
     destination: (req, file, callback) => {
